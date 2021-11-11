@@ -23,14 +23,25 @@ public class JSONHandler {
 			con.disconnect();
 			
 			//new JSONObject(content).toString(2);
-			String jsonData = content.toString();
-			JsonObject jsonEle = JsonParser.parseString(jsonData).getAsJsonObject();
+			//Receiving JSON-format data from HTTP request
+			String movieDataJSON = content.toString();
 			
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String jsonOutput = gson.toJson(jsonEle);
+			//1 JsonObject jsonEle = JsonParser.parseString(movieData).getAsJsonObject();
+			//1 String jsonOutput = gson.toJson(jsonEle);
+			
+			Gson gson = new Gson();
+			Movie movie = gson.fromJson(movieDataJSON, Movie.class);
+			
+			String title = movie.getTitle();
+			int year = movie.getYear();
+			String plot = movie.getPlot();
+			String director = movie.getDirector();
+			
+			String output = title + " (" + year + ")" + "\n\n" + plot + " Directed by " + director + ".";
 			
 			
-			return jsonOutput;
+			//return jsonOutput;
+			return output;
 			//return content.toString();
 			
 			
@@ -38,6 +49,10 @@ public class JSONHandler {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static String getTitle(String json) {
+		return "";
 	}
 	
 
