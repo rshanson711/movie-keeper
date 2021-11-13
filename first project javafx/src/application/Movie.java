@@ -1,16 +1,28 @@
 package application;
 
+import javafx.scene.image.Image;
+
 public class Movie {
 	private String Title;
 	private int Year;
 	private String Plot;
 	private String Director;
+	private String Poster;
 	
-	public Movie(String title, int year, String plot, String director) {
+	public Movie(String title, int year, String plot, String director, String poster) {
 		this.Title = title;
 		this.Year = year;
 		this.Plot = plot;
 		this.Director = director;
+		this.Poster = poster;
+	}
+	
+	public Movie(Movie inputMovie) {
+		this.Title = inputMovie.getTitle();
+		this.Year = inputMovie.getYear();
+		this.Plot = inputMovie.getPlot();
+		this.Director = inputMovie.getDirector();
+		this.Poster = inputMovie.getPoster();
 	}
 	
 	public String getTitle() {
@@ -27,5 +39,9 @@ public class Movie {
 	
 	public String getDirector() {
 		return Director;
+	}
+	
+	public String getPoster() {
+		return Poster;
 	}
 }
