@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -39,7 +39,10 @@
             </MenuBar>
             <HBox spacing="10.0">
                <children>
-                  <TextField fx:id="titleField" layoutX="10.0" layoutY="10.0" promptText="Title" />
+                  <TextField fx:id="titleField" layoutX="10.0" layoutY="10.0" minWidth="208.0" promptText="Title">
+                     <HBox.margin>
+                        <Insets left="11.0" />
+                     </HBox.margin></TextField>
                   <Button mnemonicParsing="false" onAction="#searchTitle" text="Search" />
                   <Region HBox.hgrow="ALWAYS" />
                   <Button layoutX="308.0" layoutY="10.0" mnemonicParsing="false" text="Settings" />
@@ -52,7 +55,10 @@
       </VBox>
    </top>
    <center>
-      <TextArea fx:id="mainText" prefHeight="200.0" prefWidth="200.0" style="-fx-wrap-text: true;" BorderPane.alignment="CENTER" />
+      <TextArea fx:id="mainText" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0" prefWidth="400.0" style="-fx-wrap-text: true;" BorderPane.alignment="TOP_CENTER">
+         <BorderPane.margin>
+            <Insets right="8.0" top="3.0" />
+         </BorderPane.margin></TextArea>
    </center>
    <bottom>
       <HBox BorderPane.alignment="CENTER">
@@ -67,8 +73,23 @@
    <left>
       <VBox prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="posterField" fitHeight="400.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER" />
-            <TextArea />
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="posterField" accessibleText="movie poster" fitHeight="425.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <TextArea fx:id="movieInfoField" editable="false" maxWidth="-Infinity" prefHeight="200.0" style="-fx-background-color: red;" wrapText="true">
+               <VBox.margin>
+                  <Insets top="8.0" />
+               </VBox.margin>
+            </TextArea>
          </children>
          <BorderPane.margin>
             <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
