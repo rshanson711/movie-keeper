@@ -6,8 +6,11 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
@@ -56,6 +59,7 @@
                      </HBox.margin>
                   </Button>
                   <Region HBox.hgrow="ALWAYS" />
+                  <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadMovies" text="Load" />
                   <Button layoutX="308.0" layoutY="10.0" mnemonicParsing="false" text="Settings" />
                </children>
                <VBox.margin>
@@ -102,14 +106,24 @@
       </VBox>
    </left>
    <center>
-      <VBox prefHeight="713.0" prefWidth="729.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="713.0" prefWidth="682.0" BorderPane.alignment="CENTER">
          <children>
             <TabPane prefHeight="462.0" prefWidth="682.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Watched">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="423.0" prefWidth="692.0" />
-                  </content>
+                     <content>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                              <TableView fx:id="watchedTableView" prefHeight="425.0" prefWidth="682.0">
+                                <columns>
+                                  <TableColumn fx:id="titleColumn" maxWidth="200.0" minWidth="100.0" prefWidth="125.0" text="Title" />
+                                  <TableColumn fx:id="yearColumn" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="Year" />
+                                    <TableColumn fx:id="directorColumn" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Director" />
+                                </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
+                     </content>
                 </Tab>
                 <Tab text="Planned">
                   <content>

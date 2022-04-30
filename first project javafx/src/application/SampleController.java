@@ -1,14 +1,20 @@
 package application;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.*;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.*;
 
 
-public class SampleController {
+public class SampleController implements Initializable {
 	
+	private ObservableList<Movie> watchedMoviesData = FXCollections.observableArrayList();
 	private ArrayList<Movie> watchedMovies = new ArrayList<Movie>();
 	private Movie lastSearchedMovie;
 	
@@ -24,13 +30,22 @@ public class SampleController {
 	private MenuItem saveAsButton;
 	@FXML
 	private Button addToWatchedButton;
+	@FXML
+	private TableView<Movie> watchedTableView;
+	@FXML
+	private TableColumn<Movie, String> titleColumn;
+	@FXML
+	private TableColumn<Movie, Integer> yearColumn;
+	@FXML
+	private TableColumn<Movie, String> directorColumn;
+	@FXML
+	private Button loadButton;
 	
-	public void buttonClick() {
-		System.out.println("Click");
-		//mainText.setText(JSONHandler.executeGet());
-	}
 	
-	public void searchTitle() {
+	@FXML
+	void searchTitle() {
+		System.out.println(watchedMoviesData.size());
+		System.out.println(watchedMovies.size());
 		String title = titleField.getText().trim().replaceAll(" ", "+");
 		String url = "https://www.omdbapi.com/?apikey=73342f23&t=" + title;
 		
@@ -72,20 +87,53 @@ public class SampleController {
 		System.out.println(url);
 	}
 	
-	
-	public void addToWatched() {
+	@FXML
+	void addToWatched() {
 		watchedMovies.add(lastSearchedMovie);
+		watchedMoviesData.add(lastSearchedMovie);
 		System.out.println("Added movie to Watched.");
+		System.out.println(watchedMoviesData.size());
 	}
 	
-	
-	public void saveMovies() {
+	@FXML
+	void saveMovies() {
 		try {
-			Save.saveFile(this.watchedMovies);
+			Serializer.saveFile(watchedMovies);
 			System.out.println("Movies saved.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML  //Load movies from a save file
+	void loadMovies() {
+		try {
+			ArrayList<Movie> movies = new ArrayList<Movie>(Serializer.loadFile());
+			loadSavedMovies(movies);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//Use save file data to initialize the Watched column
+	public void initializeWatchedColumns(ArrayList<Movie> savedMovies) {
+		loadSavedMovies(savedMovies);
+		//System.out.println(watchedMoviesData.get(0).getTitle());
+	}
+	
+	//Collect movies for TableView on program startup
+	public void loadSavedMovies(ArrayList<Movie> movies) {		
+		for(Movie movie : movies) {
+			watchedMoviesData.add(movie);
+		}
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		titleColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
+		yearColumn.setCellValueFactory(new PropertyValueFactory<Movie, Integer>("Year"));
+		directorColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Director"));
+		watchedTableView.setItems(watchedMoviesData);
 	}
 	
 //	@FXML
