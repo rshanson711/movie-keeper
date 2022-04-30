@@ -6,7 +6,7 @@ import javafx.scene.image.*;
 
 public class JSONHandler {
 	
-	public static String[] executeGet(String urlP) {
+	public static Movie executeGet(String urlP) {
 		try {
 			//URL url = new URL("https://www.omdbapi.com/?apikey=73342f23&t=Blade+Runner");
 			URL url = new URL(urlP);
@@ -39,18 +39,8 @@ public class JSONHandler {
 			String director = movie.getDirector();
 			String poster = movie.getPoster();
 			
-			//making output strings and putting them into output array
-			String outputText = title + " (" + year + ")" + "\n\n" + plot + " Directed by " + director + ".";
-			String posterURL = poster;
-			String output[] = new String[2];
-			output[0] = outputText;
-			output[1] = posterURL;
-			
-			
-			
-			//return output array
-			return output;
-			
+			Movie output = new Movie(title, year, plot, director, poster);
+			return output;		
 			
 		} catch(Exception e) { //DO SOMETHING HERE
 			e.printStackTrace();

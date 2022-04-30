@@ -1,8 +1,10 @@
 package application;
 
+import java.io.Serializable;
 import javafx.scene.image.Image;
 
-public class Movie {
+public class Movie implements Serializable{
+	private static final long serialVersionUID = 1;
 	private String Title;
 	private int Year;
 	private String Plot;
