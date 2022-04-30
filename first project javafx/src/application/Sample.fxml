@@ -37,13 +37,16 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <HBox spacing="10.0">
+            <HBox>
                <children>
-                  <TextField fx:id="titleField" layoutX="10.0" layoutY="10.0" minWidth="208.0" promptText="Title">
+                  <TextField fx:id="titleField" layoutX="10.0" layoutY="10.0" minWidth="208.0" prefHeight="25.0" prefWidth="234.0" promptText="Title">
                      <HBox.margin>
-                        <Insets left="11.0" />
+                        <Insets />
                      </HBox.margin></TextField>
-                  <Button mnemonicParsing="false" onAction="#searchTitle" text="Search" />
+                  <Button mnemonicParsing="false" onAction="#searchTitle" text="Search">
+                     <HBox.margin>
+                        <Insets left="14.0" />
+                     </HBox.margin></Button>
                   <Region HBox.hgrow="ALWAYS" />
                   <Button layoutX="308.0" layoutY="10.0" mnemonicParsing="false" text="Settings" />
                </children>
@@ -85,9 +88,9 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <TextArea fx:id="movieInfoField" editable="false" maxWidth="-Infinity" prefHeight="200.0" style="-fx-background-color: red;" wrapText="true">
+            <TextArea fx:id="movieInfoField" editable="false" maxWidth="-Infinity" prefHeight="200.0" prefWidth="304.0" style="-fx-background-color: red;" wrapText="true">
                <VBox.margin>
-                  <Insets top="8.0" />
+                  <Insets left="4.0" top="8.0" />
                </VBox.margin>
             </TextArea>
          </children>

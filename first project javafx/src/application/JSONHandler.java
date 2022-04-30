@@ -52,7 +52,7 @@ public class JSONHandler {
 			return output;
 			
 			
-		} catch(Exception e) {
+		} catch(Exception e) { //DO SOMETHING HERE
 			e.printStackTrace();
 			return null;
 		}
