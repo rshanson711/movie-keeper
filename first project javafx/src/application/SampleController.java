@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.util.*;
 import javafx.fxml.*;
 import javafx.scene.control.*;
@@ -8,7 +9,8 @@ import javafx.scene.image.*;
 
 public class SampleController {
 	
-	private ArrayList<Movie> watchedMovies;
+	private ArrayList<Movie> watchedMovies = new ArrayList<Movie>();
+	private Movie lastSearchedMovie;
 	
 	@FXML
 	private TextArea mainText;
@@ -33,6 +35,8 @@ public class SampleController {
 		String url = "https://www.omdbapi.com/?apikey=73342f23&t=" + title;
 		
 		Movie movie = JSONHandler.executeGet(url);
+		lastSearchedMovie = movie;
+		
 		String infoTexts[] = formSearchTitleDisplay(movie);
 		
 		movieInfoField.setText(infoTexts[0]);
@@ -54,7 +58,6 @@ public class SampleController {
 		return output;
 	}
 	
-
 	public void startupMovieDisplay() {
 		String url = "https://www.omdbapi.com/?apikey=73342f23&t=Blade+Runner";
 		Movie bladeRunner = JSONHandler.executeGet(url);
@@ -69,8 +72,20 @@ public class SampleController {
 		System.out.println(url);
 	}
 	
+	
 	public void addToWatched() {
-		
+		watchedMovies.add(lastSearchedMovie);
+		System.out.println("Added movie to Watched.");
+	}
+	
+	
+	public void saveMovies() {
+		try {
+			Save.saveFile(this.watchedMovies);
+			System.out.println("Movies saved.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 //	@FXML

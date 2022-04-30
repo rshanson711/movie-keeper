@@ -2,7 +2,6 @@ package application;
 import java.net.*;
 import java.io.*;
 import com.google.gson.*;
-import javafx.scene.image.*;
 
 public class JSONHandler {
 	
@@ -13,7 +12,7 @@ public class JSONHandler {
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 			con.setRequestMethod("GET");
 			
-			int status = con.getResponseCode();
+			//int status = con.getResponseCode();
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			String inputLine;
 			StringBuffer content = new StringBuffer();
