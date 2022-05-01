@@ -15,7 +15,7 @@ import javafx.scene.image.*;
 public class SampleController implements Initializable {
 	
 	private ObservableList<Movie> watchedMoviesData = FXCollections.observableArrayList();
-	private ArrayList<Movie> watchedMovies = new ArrayList<Movie>();
+	private ArrayList<Movie> currentSessionWatchedMovies = new ArrayList<Movie>();
 	private Movie lastSearchedMovie;
 	
 	@FXML
@@ -27,7 +27,11 @@ public class SampleController implements Initializable {
 	@FXML
 	private ImageView posterField;
 	@FXML
+	private MenuItem saveButton;
+	@FXML
 	private MenuItem saveAsButton;
+	@FXML
+	private Button loadButton;
 	@FXML
 	private Button addToWatchedButton;
 	@FXML
@@ -38,14 +42,10 @@ public class SampleController implements Initializable {
 	private TableColumn<Movie, Integer> yearColumn;
 	@FXML
 	private TableColumn<Movie, String> directorColumn;
-	@FXML
-	private Button loadButton;
 	
 	
 	@FXML
 	void searchTitle() {
-		System.out.println(watchedMoviesData.size());
-		System.out.println(watchedMovies.size());
 		String title = titleField.getText().trim().replaceAll(" ", "+");
 		String url = "https://www.omdbapi.com/?apikey=73342f23&t=" + title;
 		
@@ -89,17 +89,31 @@ public class SampleController implements Initializable {
 	
 	@FXML
 	void addToWatched() {
-		watchedMovies.add(lastSearchedMovie);
-		watchedMoviesData.add(lastSearchedMovie);
-		System.out.println("Added movie to Watched.");
-		System.out.println(watchedMoviesData.size());
+		if (!watchedMoviesData.contains(lastSearchedMovie)) {
+			currentSessionWatchedMovies.add(lastSearchedMovie);
+			watchedMoviesData.add(lastSearchedMovie);
+			System.out.println("Added movie to Watched.");
+			System.out.println(watchedMoviesData.size());
+		} else {
+			System.out.println("Movie already added.");
+		}
 	}
 	
 	@FXML
 	void saveMovies() {
 		try {
-			Serializer.saveFile(watchedMovies);
+			Serializer.saveFile(currentSessionWatchedMovies);
 			System.out.println("Movies saved.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	void saveMoviesAs() {
+		try {
+			Serializer.saveFileAs(currentSessionWatchedMovies);
+			System.out.println("Movies saved to a new file.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -118,11 +132,11 @@ public class SampleController implements Initializable {
 	//Use save file data to initialize the Watched column
 	public void initializeWatchedColumns(ArrayList<Movie> savedMovies) {
 		loadSavedMovies(savedMovies);
-		//System.out.println(watchedMoviesData.get(0).getTitle());
 	}
 	
 	//Collect movies for TableView on program startup
-	public void loadSavedMovies(ArrayList<Movie> movies) {		
+	public void loadSavedMovies(ArrayList<Movie> movies) {	
+		watchedMoviesData.remove(0, watchedMoviesData.size());
 		for(Movie movie : movies) {
 			watchedMoviesData.add(movie);
 		}
@@ -134,6 +148,7 @@ public class SampleController implements Initializable {
 		yearColumn.setCellValueFactory(new PropertyValueFactory<Movie, Integer>("Year"));
 		directorColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Director"));
 		watchedTableView.setItems(watchedMoviesData);
+		loadMovies();
 	}
 	
 //	@FXML

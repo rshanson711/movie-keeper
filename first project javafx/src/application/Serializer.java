@@ -10,8 +10,21 @@ public class Serializer implements Serializable {
 	
 	@FXML
 	private MenuItem saveAsButton;
+	@FXML
+	private MenuItem saveButton;
+	@FXML
+	private Button loadButton;
 	
 	public static void saveFile(ArrayList<Movie> movies) throws IOException {
+		FileOutputStream fos = new FileOutputStream("saved_movies.txt", true);
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		
+		oos.writeObject(movies);
+		oos.flush(); //WHY DO THIS?
+		oos.close(); //WHY DO THIS?
+	}
+	
+	public static void saveFileAs(ArrayList<Movie> movies) throws IOException {
 		FileOutputStream fos = new FileOutputStream("saved_movies.txt");
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		
