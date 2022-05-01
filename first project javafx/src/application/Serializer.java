@@ -2,6 +2,8 @@ package application;
 
 import java.io.*;
 import java.util.*;
+
+import javafx.collections.ObservableList;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 
@@ -16,7 +18,7 @@ public class Serializer implements Serializable {
 	private Button loadButton;
 	
 	public static void saveFile(ArrayList<Movie> movies) throws IOException {
-		FileOutputStream fos = new FileOutputStream("saved_movies.txt", true);
+		FileOutputStream fos = new FileOutputStream("saved_movies.txt");
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		
 		oos.writeObject(movies);

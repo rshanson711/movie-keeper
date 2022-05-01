@@ -14,6 +14,7 @@ import javafx.scene.image.*;
 
 public class SampleController implements Initializable {
 	
+	private ArrayList<Movie> allWatchedMovies = new ArrayList<Movie>();
 	private ObservableList<Movie> watchedMoviesData = FXCollections.observableArrayList();
 	private ArrayList<Movie> currentSessionWatchedMovies = new ArrayList<Movie>();
 	private Movie lastSearchedMovie;
@@ -90,8 +91,9 @@ public class SampleController implements Initializable {
 	@FXML
 	void addToWatched() {
 		if (!watchedMoviesData.contains(lastSearchedMovie)) {
-			currentSessionWatchedMovies.add(lastSearchedMovie);
+			allWatchedMovies.add(lastSearchedMovie);
 			watchedMoviesData.add(lastSearchedMovie);
+			currentSessionWatchedMovies.add(lastSearchedMovie);
 			System.out.println("Added movie to Watched.");
 			System.out.println(watchedMoviesData.size());
 		} else {
@@ -102,7 +104,7 @@ public class SampleController implements Initializable {
 	@FXML
 	void saveMovies() {
 		try {
-			Serializer.saveFile(currentSessionWatchedMovies);
+			Serializer.saveFile(allWatchedMovies);
 			System.out.println("Movies saved.");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -123,22 +125,23 @@ public class SampleController implements Initializable {
 	void loadMovies() {
 		try {
 			ArrayList<Movie> movies = new ArrayList<Movie>(Serializer.loadFile());
-			loadSavedMovies(movies);
+			loadSavedMoviesStartup(movies);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	//Use save file data to initialize the Watched column
+	/*Use save file data to initialize the Watched column
 	public void initializeWatchedColumns(ArrayList<Movie> savedMovies) {
 		loadSavedMovies(savedMovies);
-	}
+	}*/
 	
 	//Collect movies for TableView on program startup
-	public void loadSavedMovies(ArrayList<Movie> movies) {	
+	public void loadSavedMoviesStartup(ArrayList<Movie> movies) {	
 		watchedMoviesData.remove(0, watchedMoviesData.size());
 		for(Movie movie : movies) {
 			watchedMoviesData.add(movie);
+			allWatchedMovies.add(movie);
 		}
 	}
 
