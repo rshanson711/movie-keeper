@@ -62,6 +62,7 @@ public class SampleController implements Initializable {
 		posterField.setImage(poster);
 		
 		System.out.println(url);
+		mainText.setText(url);
 	}
 	
 	public String[] formSearchTitleDisplay(Movie movie) {

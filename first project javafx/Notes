@@ -1,0 +1,9 @@
+NOTE:
+
+This is set to be compatible with JRE 1.8. You can go into Window>Preferences>... to change
+this if needed.
+
+NOTE:
+
+Use Export>Runnable JAR so that GSON is included within the .jar otherwise the .jar
+can't do API interactions properly.
