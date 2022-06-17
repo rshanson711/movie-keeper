@@ -103,6 +103,21 @@ public class SampleController implements Initializable {
 	}
 	
 	@FXML
+	void removeFromWatched() {
+		Movie selectedMovie = watchedTableView.getSelectionModel().getSelectedItem();
+		
+		if (selectedMovie != null) {
+			allWatchedMovies.remove(selectedMovie);
+			watchedMoviesData.remove(selectedMovie);
+			currentSessionWatchedMovies.remove(selectedMovie);
+			System.out.println("Movie removed.");
+			System.out.println(watchedMoviesData.size());
+		} else {
+			System.out.println("Failed to remove movie.");
+		}
+	}
+	
+	@FXML
 	void saveMovies() {
 		try {
 			Serializer.saveFile(allWatchedMovies);

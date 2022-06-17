@@ -115,7 +115,7 @@
                         <Insets top="195.0" />
                      </VBox.margin>
                   </Button>
-                  <Button minWidth="80.0" mnemonicParsing="false" prefWidth="80.0" text="&lt;&lt; Remove">
+                  <Button minWidth="80.0" mnemonicParsing="false" onAction="#removeFromWatched" prefWidth="80.0" text="&lt;&lt; Remove">
                      <VBox.margin>
                         <Insets top="8.0" />
                      </VBox.margin>
