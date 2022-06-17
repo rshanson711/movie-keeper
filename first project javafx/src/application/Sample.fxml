@@ -14,7 +14,6 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -110,12 +109,12 @@
          <children>
             <VBox alignment="TOP_CENTER" minWidth="60.0" prefHeight="713.0" prefWidth="92.0">
                <children>
-                  <Button fx:id="addToWatchedButton" minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#addToWatched" prefWidth="80.0" text="Add &gt;&gt;">
+                  <Button fx:id="addToTableButton" minHeight="25.0" minWidth="80.0" mnemonicParsing="false" onAction="#addToTable" prefWidth="80.0" text="Add &gt;&gt;">
                      <VBox.margin>
                         <Insets top="195.0" />
                      </VBox.margin>
                   </Button>
-                  <Button minWidth="80.0" mnemonicParsing="false" onAction="#removeFromWatched" prefWidth="80.0" text="&lt;&lt; Remove">
+                  <Button fx:id="removeFromTableButton" minWidth="80.0" mnemonicParsing="false" onAction="#removeFromTable" prefWidth="80.0" text="&lt;&lt; Remove">
                      <VBox.margin>
                         <Insets top="8.0" />
                      </VBox.margin>
@@ -129,11 +128,11 @@
                <children>
                   <TabPane prefHeight="462.0" prefWidth="585.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                      <Tab text="Watched">
+                      <Tab fx:id="watchedTab" text="Watched">
                            <content>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0">
                                  <content>
-                                    <TableView fx:id="watchedTableView" prefHeight="425.0" prefWidth="587.0">
+                                    <TableView fx:id="watchedTableView" prefHeight="425.0" prefWidth="586.0">
                                       <columns>
                                         <TableColumn fx:id="titleColumn" maxWidth="200.0" minWidth="100.0" prefWidth="125.0" text="Title" />
                                         <TableColumn fx:id="yearColumn" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="Year" />
@@ -144,10 +143,20 @@
                               </ScrollPane>
                            </content>
                       </Tab>
-                      <Tab text="Planned">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
+                      <Tab fx:id="plannedTab" text="Planned">
+                           <content>
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                                 <content>
+                                    <TableView prefHeight="425.0" prefWidth="586.0">
+                                      <columns>
+                                          <TableColumn fx:id="titleColumn1" maxWidth="200.0" minWidth="100.0" prefWidth="125.0" text="Title" />
+                                          <TableColumn fx:id="yearColumn1" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="Year" />
+                                          <TableColumn fx:id="directorColumn1" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Director" />
+                                      </columns>
+                                    </TableView>
+                                 </content>
+                              </ScrollPane>
+                           </content>
                       </Tab>
                     </tabs>
                   </TabPane>

@@ -34,9 +34,15 @@ public class SampleController implements Initializable {
 	@FXML
 	private Button loadButton;
 	@FXML
-	private Button addToWatchedButton;
+	private Button addToTableButton;
+	@FXML
+	private Button removeFromTableButton;
 	@FXML
 	private TableView<Movie> watchedTableView;
+	@FXML
+	private Tab watchedTab;
+	@FXML
+	private Tab plannedTab;
 	@FXML
 	private TableColumn<Movie, String> titleColumn;
 	@FXML
@@ -90,8 +96,8 @@ public class SampleController implements Initializable {
 	}
 	
 	@FXML
-	void addToWatched() {
-		if (!watchedMoviesData.contains(lastSearchedMovie)) {
+	void addToTable() {
+		if (watchedTab.isSelected() && !watchedMoviesData.contains(lastSearchedMovie)) {
 			allWatchedMovies.add(lastSearchedMovie);
 			watchedMoviesData.add(lastSearchedMovie);
 			currentSessionWatchedMovies.add(lastSearchedMovie);
@@ -103,7 +109,7 @@ public class SampleController implements Initializable {
 	}
 	
 	@FXML
-	void removeFromWatched() {
+	void removeFromTable() {
 		Movie selectedMovie = watchedTableView.getSelectionModel().getSelectedItem();
 		
 		if (selectedMovie != null) {
