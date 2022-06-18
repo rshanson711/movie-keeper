@@ -22,8 +22,8 @@ public class Serializer implements Serializable {
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		
 		oos.writeObject(movies);
-		oos.flush(); //WHY DO THIS?
-		oos.close(); //WHY DO THIS?
+		oos.flush();
+		oos.close();
 	}
 	
 	public static void saveFileAs(ArrayList<Movie> movies) throws IOException {
@@ -31,24 +31,41 @@ public class Serializer implements Serializable {
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		
 		oos.writeObject(movies);
-		oos.flush(); //WHY DO THIS?
-		oos.close(); //WHY DO THIS?
+		oos.flush();
+		oos.close();
 	}
 	
-	public static ArrayList<Movie> loadFile() throws IOException {
-		FileInputStream fis = new FileInputStream("saved_movies.txt");
-		ObjectInputStream ois = new ObjectInputStream(fis);
-		ArrayList<Movie> savedMovies = null;
+	public static ArrayList<Movie> loadWatchedFile() throws IOException {
+		FileInputStream fis_watched = new FileInputStream("watched_movies.save");
+		ObjectInputStream ois_watched = new ObjectInputStream(fis_watched);
+		ArrayList<Movie> savedWatchedMovies = null;
 		
 		try {
-			savedMovies = (ArrayList<Movie>)ois.readObject();
+			savedWatchedMovies = (ArrayList<Movie>)ois_watched.readObject();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		ois.close();
-		return savedMovies;
+		ois_watched.close();
+		return savedWatchedMovies;
+	}
+	
+	public static ArrayList<Movie> loadPlannedFile() throws IOException {
+		FileInputStream fis_planned = new FileInputStream("planned_movies.save");
+		ObjectInputStream ois_planned = new ObjectInputStream(fis_planned);
+		ArrayList<Movie> savedPlannedMovies = null;
+		
+		try {
+			savedPlannedMovies = (ArrayList<Movie>)ois_planned.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		ois_planned.close();
+		return savedPlannedMovies;
 	}
 }

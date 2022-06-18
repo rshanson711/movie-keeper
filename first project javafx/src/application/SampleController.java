@@ -171,31 +171,95 @@ public class SampleController implements Initializable {
 		}
 	}
 	
-	@FXML
-	void saveMovies() {
-		try {
-			Serializer.saveFile(allWatchedMovies);
-			System.out.println("Movies saved.");
-		} catch (IOException e) {
-			e.printStackTrace();
+	public void overwriteSave(int selection) {
+		switch (selection) {
+		case 0:
+			try {
+				Serializer.saveFile(allWatchedMovies);
+				System.out.println("Movies saved.");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		case 1:
+			try {
+				Serializer.saveFile(allPlannedMovies);
+				System.out.println("Movies saved.");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		case 2:
+			overwriteSave(0);
+			overwriteSave(1);
 		}
 	}
 	
-	@FXML
-	void saveMoviesAs() {
-		try {
-			Serializer.saveFileAs(currentSessionWatchedMovies);
-			System.out.println("Movies saved to a new file.");
-		} catch (IOException e) {
-			e.printStackTrace();
+	public void createNewSave(int selection) {
+		switch (selection) {
+		case 0:
+			try {
+				Serializer.saveFileAs(currentSessionWatchedMovies);
+				System.out.println("Movies saved to a new file.");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		case 1:
+			try {
+				Serializer.saveFileAs(currentSessionPlannedMovies);
+				System.out.println("Movies saved to a new file.");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		case 2:
+			createNewSave(0);
+			createNewSave(1);
 		}
+		
 	}
+	
+	// The following are intermediate methods for the save buttons (6 in total) -------------------
+	
+	@FXML
+	void overwriteWatched() {
+		overwriteSave(0);
+	}
+	
+	@FXML
+	void overwritePlanned() {
+		overwriteSave(1);
+	}
+	
+	@FXML
+	void overwriteAll() {
+		overwriteSave(2);
+	}
+	
+	@FXML
+	void createWatched() {
+		createNewSave(0);
+	}
+	
+	@FXML
+	void createPlanned() {
+		createNewSave(1);
+	}
+	
+	@FXML
+	void createAll() {
+		createNewSave(2);
+	}
+	
+	// --------------------------------------------------------------------------------------------
 	
 	@FXML  //Load movies from a save file
 	void loadMovies() {
 		try {
-			ArrayList<Movie> movies = new ArrayList<Movie>(Serializer.loadFile());
-			loadSavedMoviesStartup(movies);
+			ArrayList<Movie> watchedMovies = new ArrayList<Movie>(Serializer.loadWatchedFile());
+			ArrayList<Movie> plannedMovies = new ArrayList<Movie>(Serializer.loadPlannedFile());
+			loadSavedMoviesStartup(watchedMovies, plannedMovies);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -207,11 +271,17 @@ public class SampleController implements Initializable {
 	}*/
 	
 	//Collect movies for TableView on program startup
-	public void loadSavedMoviesStartup(ArrayList<Movie> movies) {	
+	public void loadSavedMoviesStartup(ArrayList<Movie> watchedMovies, ArrayList<Movie> plannedMovies) {	
 		watchedMoviesData.remove(0, watchedMoviesData.size());
-		for(Movie movie : movies) {
+		for(Movie movie : watchedMovies) {
 			watchedMoviesData.add(movie);
 			allWatchedMovies.add(movie);
+		}
+		
+		plannedMoviesData.remove(0, plannedMoviesData.size());
+		for (Movie movie : plannedMovies) {
+			plannedMoviesData.add(movie);
+			allPlannedMovies.add(movie);
 		}
 	}
 

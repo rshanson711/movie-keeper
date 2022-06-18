@@ -27,8 +27,20 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                        <MenuItem fx:id="saveButton" mnemonicParsing="false" onAction="#saveMovies" text="Save" />
-                    <MenuItem fx:id="saveAsButton" mnemonicParsing="false" onAction="#saveMoviesAs" text="Save as..." />
+                        <Menu mnemonicParsing="false" text="Create new save...">
+                          <items>
+                            <MenuItem fx:id="createNewWatched" mnemonicParsing="false" onAction="#createWatched" text="Watched" />
+                              <MenuItem fx:id="createNewPlanned" mnemonicParsing="false" onAction="#createPlanned" text="Planned" />
+                              <MenuItem fx:id="createNewAll" mnemonicParsing="false" onAction="#createAll" text="All" />
+                          </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Save...">
+                           <items>
+                              <MenuItem fx:id="overwriteWatched" mnemonicParsing="false" onAction="#overwriteWatched" text="Watched" />
+                              <MenuItem fx:id="overwritePlanned" mnemonicParsing="false" onAction="#overwritePlanned" text="Planned" />
+                              <MenuItem fx:id="overwriteAll" mnemonicParsing="false" onAction="#overwriteAll" text="All" />
+                           </items>
+                        </Menu>
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
