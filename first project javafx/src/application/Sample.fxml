@@ -126,7 +126,7 @@
             </VBox>
             <VBox prefHeight="713.0" prefWidth="586.0">
                <children>
-                  <TabPane prefHeight="462.0" prefWidth="585.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="listTabPane" prefHeight="462.0" prefWidth="585.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab fx:id="watchedTab" text="Watched">
                            <content>
@@ -134,9 +134,9 @@
                                  <content>
                                     <TableView fx:id="watchedTableView" prefHeight="425.0" prefWidth="586.0">
                                       <columns>
-                                        <TableColumn fx:id="titleColumn" maxWidth="200.0" minWidth="100.0" prefWidth="125.0" text="Title" />
-                                        <TableColumn fx:id="yearColumn" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="Year" />
-                                          <TableColumn fx:id="directorColumn" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Director" />
+                                        <TableColumn fx:id="watchedTitleColumn" maxWidth="200.0" minWidth="100.0" prefWidth="125.0" text="Title" />
+                                        <TableColumn fx:id="watchedYearColumn" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="Year" />
+                                          <TableColumn fx:id="watchedDirectorColumn" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Director" />
                                       </columns>
                                     </TableView>
                                  </content>
@@ -147,11 +147,11 @@
                            <content>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0">
                                  <content>
-                                    <TableView prefHeight="425.0" prefWidth="586.0">
+                                    <TableView fx:id="plannedTableView" prefHeight="425.0" prefWidth="586.0">
                                       <columns>
-                                          <TableColumn fx:id="titleColumn1" maxWidth="200.0" minWidth="100.0" prefWidth="125.0" text="Title" />
-                                          <TableColumn fx:id="yearColumn1" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="Year" />
-                                          <TableColumn fx:id="directorColumn1" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Director" />
+                                          <TableColumn fx:id="plannedTitleColumn" maxWidth="200.0" minWidth="100.0" prefWidth="125.0" text="Title" />
+                                          <TableColumn fx:id="plannedYearColumn" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="Year" />
+                                          <TableColumn fx:id="plannedDirectorColumn" maxWidth="200.0" minWidth="100.0" prefWidth="100.0" text="Director" />
                                       </columns>
                                     </TableView>
                                  </content>

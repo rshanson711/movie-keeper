@@ -15,8 +15,11 @@ import javafx.scene.image.*;
 public class SampleController implements Initializable {
 	
 	private ArrayList<Movie> allWatchedMovies = new ArrayList<Movie>();
+	private ArrayList<Movie> allPlannedMovies = new ArrayList<Movie>();
 	private ObservableList<Movie> watchedMoviesData = FXCollections.observableArrayList();
+	private ObservableList<Movie> plannedMoviesData = FXCollections.observableArrayList();
 	private ArrayList<Movie> currentSessionWatchedMovies = new ArrayList<Movie>();
+	private ArrayList<Movie> currentSessionPlannedMovies = new ArrayList<Movie>();
 	private Movie lastSearchedMovie;
 	
 	@FXML
@@ -40,15 +43,25 @@ public class SampleController implements Initializable {
 	@FXML
 	private TableView<Movie> watchedTableView;
 	@FXML
+	private TableView<Movie> plannedTableView;
+	@FXML
+	private TabPane listTabPane;	
+	@FXML
 	private Tab watchedTab;
 	@FXML
 	private Tab plannedTab;
 	@FXML
-	private TableColumn<Movie, String> titleColumn;
+	private TableColumn<Movie, String> watchedTitleColumn;
 	@FXML
-	private TableColumn<Movie, Integer> yearColumn;
+	private TableColumn<Movie, Integer> watchedYearColumn;
 	@FXML
-	private TableColumn<Movie, String> directorColumn;
+	private TableColumn<Movie, String> watchedDirectorColumn;
+	@FXML
+	private TableColumn<Movie, String> plannedTitleColumn;
+	@FXML
+	private TableColumn<Movie, Integer> plannedYearColumn;
+	@FXML
+	private TableColumn<Movie, String> plannedDirectorColumn;
 	
 	
 	@FXML
@@ -95,29 +108,64 @@ public class SampleController implements Initializable {
 		System.out.println(url);
 	}
 	
+	public int getCurrentTab() {
+		
+		/* listTabPane indices:
+		 * 0 == Watched
+		 * 1 == Planned
+		 */
+		
+		return listTabPane.getSelectionModel().getSelectedIndex();
+	}
+	
 	@FXML
 	void addToTable() {
-		if (watchedTab.isSelected() && !watchedMoviesData.contains(lastSearchedMovie)) {
+		int currentTab = getCurrentTab();
+		
+		if (currentTab == 0 && !watchedMoviesData.contains(lastSearchedMovie)) {
 			allWatchedMovies.add(lastSearchedMovie);
 			watchedMoviesData.add(lastSearchedMovie);
 			currentSessionWatchedMovies.add(lastSearchedMovie);
 			System.out.println("Added movie to Watched.");
-			System.out.println(watchedMoviesData.size());
+		} else if (currentTab == 1 && !plannedMoviesData.contains(lastSearchedMovie)) {
+			allPlannedMovies.add(lastSearchedMovie);
+			plannedMoviesData.add(lastSearchedMovie);
+			currentSessionPlannedMovies.add(lastSearchedMovie);
+			System.out.println("Added movie to Planned.");
 		} else {
-			System.out.println("Movie already added.");
+			System.out.println("Movie already added to list!");
 		}
 	}
 	
 	@FXML
 	void removeFromTable() {
-		Movie selectedMovie = watchedTableView.getSelectionModel().getSelectedItem();
+		/* LOOK INTO A WAY TO OPTIMIZE THIS FUNCTION SOMEHOW
+		 * IT SEEMS LIKE IT CAN BE WRITTEN "BETTER"
+		 */
+		
+		int currentTabIndex = getCurrentTab();
+		TableView<Movie> currentTableView;
+		
+		if (currentTabIndex == 0) {
+			currentTableView = watchedTableView;
+		} else {
+			currentTableView = plannedTableView;
+		}
+		
+		Movie selectedMovie = currentTableView.getSelectionModel().getSelectedItem();
+		
 		
 		if (selectedMovie != null) {
-			allWatchedMovies.remove(selectedMovie);
-			watchedMoviesData.remove(selectedMovie);
-			currentSessionWatchedMovies.remove(selectedMovie);
-			System.out.println("Movie removed.");
-			System.out.println(watchedMoviesData.size());
+			if (currentTabIndex == 0) {
+				allWatchedMovies.remove(selectedMovie);
+				watchedMoviesData.remove(selectedMovie);
+				currentSessionWatchedMovies.remove(selectedMovie);
+				System.out.println("Movie removed.");
+			} else if (currentTabIndex == 1) {
+				allPlannedMovies.remove(selectedMovie);
+				plannedMoviesData.remove(selectedMovie);
+				currentSessionPlannedMovies.remove(selectedMovie);
+			}
 		} else {
 			System.out.println("Failed to remove movie.");
 		}
@@ -169,10 +217,15 @@ public class SampleController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		titleColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
-		yearColumn.setCellValueFactory(new PropertyValueFactory<Movie, Integer>("Year"));
-		directorColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Director"));
+		watchedTitleColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
+		watchedYearColumn.setCellValueFactory(new PropertyValueFactory<Movie, Integer>("Year"));
+		watchedDirectorColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Director"));
 		watchedTableView.setItems(watchedMoviesData);
+		
+		plannedTitleColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
+		plannedYearColumn.setCellValueFactory(new PropertyValueFactory<Movie, Integer>("Year"));
+		plannedDirectorColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Director"));
+		plannedTableView.setItems(plannedMoviesData);
 		loadMovies();
 	}
 	
