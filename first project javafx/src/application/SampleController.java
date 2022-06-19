@@ -175,23 +175,24 @@ public class SampleController implements Initializable {
 		switch (selection) {
 		case 0:
 			try {
-				Serializer.saveFile(allWatchedMovies);
+				Serializer.saveFile(allWatchedMovies, selection);
 				System.out.println("Movies saved.");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+			break;
 		case 1:
 			try {
-				Serializer.saveFile(allPlannedMovies);
+				Serializer.saveFile(allPlannedMovies, selection);
 				System.out.println("Movies saved.");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+			break;
 		case 2:
 			overwriteSave(0);
 			overwriteSave(1);
+			break;
 		}
 	}
 	
@@ -199,26 +200,28 @@ public class SampleController implements Initializable {
 		switch (selection) {
 		case 0:
 			try {
-				Serializer.saveFileAs(currentSessionWatchedMovies);
+				Serializer.saveFileAs(currentSessionWatchedMovies, 0);
 				System.out.println("Movies saved to a new file.");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+			break;
 		case 1:
 			try {
-				Serializer.saveFileAs(currentSessionPlannedMovies);
+				Serializer.saveFileAs(currentSessionPlannedMovies, 1);
 				System.out.println("Movies saved to a new file.");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+			break;
 		case 2:
 			createNewSave(0);
 			createNewSave(1);
+			break;
 		}
 		
 	}
+	
 	
 	// The following are intermediate methods for the save buttons (6 in total) -------------------
 	
@@ -253,6 +256,7 @@ public class SampleController implements Initializable {
 	}
 	
 	// --------------------------------------------------------------------------------------------
+	
 	
 	@FXML  //Load movies from a save file
 	void loadMovies() {

@@ -21,9 +21,6 @@ public class Main extends Application {
 			primaryStage.setTitle("MovieKeeper");
 			primaryStage.show();
 			
-			//SampleController startupController = new SampleController();
-			//startupController.initializeWatchedColumns(Serializer.loadFile());
-			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
