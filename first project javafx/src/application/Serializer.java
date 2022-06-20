@@ -48,14 +48,15 @@ public class Serializer implements Serializable {
 		fc.getExtensionFilters().addAll(
 				new ExtensionFilter("Save Files", "*.save"),
 				new ExtensionFilter("All Files", "*.*"));
-		fc.setTitle("Save as...");
 		Stage stage = new Stage();
 		
 		switch (selection) {
 		case 0:
+			fc.setTitle("Save Watched as...");
 			fc.setInitialFileName("watched_movies.save");
 			break;
 		case 1:
+			fc.setTitle("Save Planned as...");
 			fc.setInitialFileName("planned_movies.save");
 			break;
 		}

@@ -200,7 +200,8 @@ public class SampleController implements Initializable {
 		switch (selection) {
 		case 0:
 			try {
-				Serializer.saveFileAs(currentSessionWatchedMovies, 0);
+				//Serializer.saveFileAs(currentSessionWatchedMovies, 0);
+				Serializer.saveFileAs(allWatchedMovies, 0);
 				System.out.println("Movies saved to a new file.");
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -208,7 +209,8 @@ public class SampleController implements Initializable {
 			break;
 		case 1:
 			try {
-				Serializer.saveFileAs(currentSessionPlannedMovies, 1);
+				//Serializer.saveFileAs(currentSessionPlannedMovies, 1);
+				Serializer.saveFileAs(allPlannedMovies, 1);
 				System.out.println("Movies saved to a new file.");
 			} catch (IOException e) {
 				e.printStackTrace();
