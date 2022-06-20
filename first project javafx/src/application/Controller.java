@@ -12,7 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.*;
 
 
-public class SampleController implements Initializable {
+public class Controller implements Initializable {
 	
 	private ArrayList<Movie> allWatchedMovies = new ArrayList<Movie>();
 	private ArrayList<Movie> allPlannedMovies = new ArrayList<Movie>();
@@ -71,14 +71,7 @@ public class SampleController implements Initializable {
 		
 		Movie movie = JSONHandler.executeGet(url);
 		lastSearchedMovie = movie;
-		
-		String infoTexts[] = formSearchTitleDisplay(movie);
-		
-		movieInfoField.setText(infoTexts[0]);
-		
-		Image poster = new Image(infoTexts[1]);
-		//Image poster = new Image("https://m.media-amazon.com/images/M/MV5BNzQzMzJhZTEtOWM4NS00MTdhLTg0YjgtMjM4MDRkZjUwZDBlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg");
-		posterField.setImage(poster);
+		updateInfo(movie);
 		
 		System.out.println(url);
 		mainText.setText(url);
@@ -94,18 +87,11 @@ public class SampleController implements Initializable {
 		return output;
 	}
 	
-	public void startupMovieDisplay() {
-		String url = "https://www.omdbapi.com/?apikey=73342f23&t=Blade+Runner";
-		Movie bladeRunner = JSONHandler.executeGet(url);
-		
-		String infoTexts[] = formSearchTitleDisplay(bladeRunner);
-
-		mainText.setText(infoTexts[0]);
+	public void updateInfo(Movie movie) {
+		String infoTexts[] = formSearchTitleDisplay(movie);
+		movieInfoField.setText(infoTexts[0]);
 		Image poster = new Image(infoTexts[1]);
-		//Image poster = new Image("https://m.media-amazon.com/images/M/MV5BNzQzMzJhZTEtOWM4NS00MTdhLTg0YjgtMjM4MDRkZjUwZDBlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg");
 		posterField.setImage(poster);
-		
-		System.out.println(url);
 	}
 	
 	public int getCurrentTab() {
@@ -200,7 +186,6 @@ public class SampleController implements Initializable {
 		switch (selection) {
 		case 0:
 			try {
-				//Serializer.saveFileAs(currentSessionWatchedMovies, 0);
 				Serializer.saveFileAs(allWatchedMovies, 0);
 				System.out.println("Movies saved to a new file.");
 			} catch (IOException e) {
@@ -209,7 +194,6 @@ public class SampleController implements Initializable {
 			break;
 		case 1:
 			try {
-				//Serializer.saveFileAs(currentSessionPlannedMovies, 1);
 				Serializer.saveFileAs(allPlannedMovies, 1);
 				System.out.println("Movies saved to a new file.");
 			} catch (IOException e) {
@@ -259,6 +243,22 @@ public class SampleController implements Initializable {
 	
 	// --------------------------------------------------------------------------------------------
 	
+	@FXML
+	void selectMovieAndUpdateInfo() {
+		int currentTabIndex = getCurrentTab();
+		TableView<Movie> currentTableView;
+		
+		if (currentTabIndex == 0) {
+			currentTableView = watchedTableView;
+		} else {
+			currentTableView = plannedTableView;
+		}
+		Movie selectedMovie = currentTableView.getSelectionModel().getSelectedItem();
+		
+		if (selectedMovie != null) {
+			updateInfo(selectedMovie);
+		}
+	}
 	
 	@FXML  //Load movies from a save file
 	void loadMovies() {
@@ -270,11 +270,6 @@ public class SampleController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
-	/*Use save file data to initialize the Watched column
-	public void initializeWatchedColumns(ArrayList<Movie> savedMovies) {
-		loadSavedMovies(savedMovies);
-	}*/
 	
 	//Collect movies for TableView on program startup
 	public void loadSavedMoviesStartup(ArrayList<Movie> watchedMovies, ArrayList<Movie> plannedMovies) {	
@@ -304,18 +299,4 @@ public class SampleController implements Initializable {
 		plannedTableView.setItems(plannedMoviesData);
 		loadMovies();
 	}
-	
-//	@FXML
-//	public static String updateMainText(Movie movie) {
-//		String title = movie.getTitle();
-//		int year = movie.getYear();
-//		String plot = movie.getPlot();
-//		String director = movie.getDirector();
-//		//Image poster = movie.getPoster();
-//		
-//		String output = title + " (" + year + ")" + "\n\n" + plot + " Directed by " + director + ".";
-//		return output;
-//	}
-	
-	
 }

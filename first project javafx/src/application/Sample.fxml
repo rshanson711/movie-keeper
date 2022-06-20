@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -149,7 +149,7 @@
                            <content>
                               <ScrollPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="422.0" prefWidth="200.0">
                                  <content>
-                                    <TableView fx:id="watchedTableView" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="422.0" prefWidth="586.0">
+                                    <TableView fx:id="watchedTableView" maxHeight="-Infinity" minHeight="-Infinity" onMousePressed="#selectMovieAndUpdateInfo" prefHeight="422.0" prefWidth="586.0">
                                       <columns>
                                         <TableColumn fx:id="watchedTitleColumn" maxWidth="200.0" minWidth="100.0" prefWidth="125.0" text="Title" />
                                         <TableColumn fx:id="watchedYearColumn" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="Year" />
@@ -164,7 +164,7 @@
                            <content>
                               <ScrollPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="422.0" prefWidth="200.0">
                                  <content>
-                                    <TableView fx:id="plannedTableView" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="422.0" prefWidth="586.0">
+                                    <TableView fx:id="plannedTableView" maxHeight="-Infinity" minHeight="-Infinity" onMousePressed="#selectMovieAndUpdateInfo" prefHeight="422.0" prefWidth="586.0">
                                       <columns>
                                           <TableColumn fx:id="plannedTitleColumn" maxWidth="200.0" minWidth="100.0" prefWidth="125.0" text="Title" />
                                           <TableColumn fx:id="plannedYearColumn" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="Year" />
